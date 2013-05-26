@@ -71,10 +71,10 @@ runhaskell Setup.lhs copy --destdir=$RPM_BUILD_ROOT
 
 # work around automatic haddock docs installation
 rm -rf %{name}-%{version}-doc
-cp -a $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version} %{name}-%{version}-doc
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version} %{name}-%{version}-doc
 
 runhaskell Setup.lhs register \
-	--gen-pkg-config=$RPM_BUILD_ROOT/%{_libdir}/%{ghcdir}/package.conf.d/QuickCheck.conf
+	--gen-pkg-config=$RPM_BUILD_ROOT%{_libdir}/%{ghcdir}/package.conf.d/QuickCheck.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -87,8 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE README
-%doc %{name}-%{version}-doc/*
+%doc LICENSE README %{name}-%{version}-doc/html
 %{_libdir}/%{ghcdir}/package.conf.d/QuickCheck.conf
 %dir %{_libdir}/%{ghcdir}/QuickCheck-%{version}
 %{_libdir}/%{ghcdir}/QuickCheck-%{version}/*.o
