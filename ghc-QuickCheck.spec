@@ -5,7 +5,8 @@ Version:	2.6
 Release:	1
 License:	BSD
 Group:		Development/Languages
-Source0:	http://hackage.haskell.org/packages/archive/QuickCheck/%{version}/QuickCheck-%{version}.tar.gz
+#Source0Download: http://hackage.haskell.org/package/QuickCheck
+Source0:	http://hackage.haskell.org/package/QuickCheck-%{version}/QuickCheck-%{version}.tar.gz
 # Source0-md5:	881d546b39c60789e375b2ab3dbce677
 URL:		http://hackage.haskell.org/package/QuickCheck/
 BuildRequires:	ghc-prof >= 6.12.3
