@@ -27,7 +27,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 # debuginfo is not useful for ghc
 %define		_enable_debug_packages	0
 
-# don't compress haddoc files
+# don't compress haddock files
 %define		_noautocompressdoc	*.haddock
 
 %description
