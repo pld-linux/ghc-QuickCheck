@@ -5,23 +5,26 @@
 Summary:	QuickCheck 2 - library for random testing of program properties
 Summary(pl.UTF-8):	QuickCheck 2 - biblioteka do losowego testowania właściwości programu
 Name:		ghc-QuickCheck
-Version:	2.6
+Version:	2.14
 Release:	1
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/QuickCheck
 Source0:	http://hackage.haskell.org/package/QuickCheck-%{version}/QuickCheck-%{version}.tar.gz
-# Source0-md5:	881d546b39c60789e375b2ab3dbce677
+# Source0-md5:	2a4e5ddd89f6ab03fe07905cf14d0af1
 URL:		http://hackage.haskell.org/package/QuickCheck
 BuildRequires:	ghc
 BuildRequires:	ghc-random
+BuildRequires:	ghc-splitmix
 %if %{with prof}
 BuildRequires:	ghc-prof >= 6.12.3
 BuildRequires:	ghc-random-prof
+BuildRequires:	ghc-splitmix-prof
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 %requires_releq	ghc
 Requires:	ghc-random
+Requires:	ghc-splitmix
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
@@ -44,6 +47,7 @@ Summary(pl.UTF-8):	Biblioteka profilująca QuickCheck dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	ghc-random-prof
+Requires:	ghc-splitmix-prof
 
 %description prof
 Profiling QuickCheck library for GHC.  Should be installed when
@@ -101,17 +105,24 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE README %{name}-%{version}-doc/html
 %{_libdir}/%{ghcdir}/package.conf.d/QuickCheck.conf
 %dir %{_libdir}/%{ghcdir}/QuickCheck-%{version}
-%{_libdir}/%{ghcdir}/QuickCheck-%{version}/HSQuickCheck-%{version}.o
-%{_libdir}/%{ghcdir}/QuickCheck-%{version}/libHSQuickCheck-%{version}.a
+%{_libdir}/%{ghcdir}/QuickCheck-%{version}/libHSQuickCheck-%{version}-*.so
+%{_libdir}/%{ghcdir}/QuickCheck-%{version}/libHSQuickCheck-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/QuickCheck-%{version}/libHSQuickCheck-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test
 %{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/*.hi
+%{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/QuickCheck
 %{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/QuickCheck/*.hi
+%{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/QuickCheck/*.dyn_hi
+%dir %{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/QuickCheck/Gen
+%{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/QuickCheck/Gen/*.hi
+%{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/QuickCheck/Gen/*.dyn_hi
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/QuickCheck-%{version}/libHSQuickCheck-%{version}_p.a
+%{_libdir}/%{ghcdir}/QuickCheck-%{version}/libHSQuickCheck-%{version}-*_p.a
 %{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/*.p_hi
 %{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/QuickCheck/*.p_hi
+%{_libdir}/%{ghcdir}/QuickCheck-%{version}/Test/QuickCheck/Gen/*.p_hi
 %endif
