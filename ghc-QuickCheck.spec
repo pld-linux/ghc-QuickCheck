@@ -6,7 +6,7 @@ Summary:	QuickCheck 2 - library for random testing of program properties
 Summary(pl.UTF-8):	QuickCheck 2 - biblioteka do losowego testowania właściwości programu
 Name:		ghc-QuickCheck
 Version:	2.14
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/QuickCheck
@@ -22,7 +22,7 @@ BuildRequires:	ghc-random-prof
 BuildRequires:	ghc-splitmix-prof
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
-%requires_releq	ghc
+%requires_eq	ghc
 Requires:	ghc-random
 Requires:	ghc-splitmix
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
